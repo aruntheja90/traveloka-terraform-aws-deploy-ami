@@ -7,7 +7,7 @@ The intent is to create an instance of this module for each environment
 ## Usage
 ```
 module "traveloka-aws-deploy-ami" {
-  source = "git@github.com:traveloka/traveloka-terraform-aws-bake-ami.git"
+  source = "git@github.com:traveloka/traveloka-terraform-aws-deploy-ami.git"
   service-name = "traveloka-flight"
   service-s3-bucket = "flight-staging-bucket-example"
   product-domain = "flight-team"
@@ -15,7 +15,7 @@ module "traveloka-aws-deploy-ami" {
   ec2-instance-role-arn = "${aws_iam_role.staging.arn}"
 }
 module "traveloka-aws-deploy-ami" {
-  source = "git@github.com:traveloka/traveloka-terraform-aws-bake-ami.git"
+  source = "git@github.com:traveloka/traveloka-terraform-aws-deploy-ami.git"
   service-name = "traveloka-flight"
   service-s3-bucket = "flight-bucket-example"
   product-domain = "flight-team"
