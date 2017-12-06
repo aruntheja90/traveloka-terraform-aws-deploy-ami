@@ -7,7 +7,7 @@ data "template_file" "codebuild_rollback_command" {
 
 resource "aws_codebuild_project" "override" {
     name         = "${var.service-name}-override-${var.environment}"
-    description  = "Write a specific AMI ID to s3://${var.service-s3-bucket}/${var.service-name}-deploy-ami/ami-id.tfvars"
+    description  = "Write a specific AMI ID to s3://${var.service-s3-bucket}/${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars"
     service_role = "${aws_iam_role.codebuild-override.arn}"
 
     artifacts {

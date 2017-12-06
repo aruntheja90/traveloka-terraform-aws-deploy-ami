@@ -35,7 +35,7 @@ resource "aws_codepipeline" "deploy-ami" {
 
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
-        S3ObjectKey = "${var.service-name}-deploy-ami/ami-id.tfvars"
+        S3ObjectKey = "${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars"
         PollForSourceChanges = "true"
       }
       run_order = 1
