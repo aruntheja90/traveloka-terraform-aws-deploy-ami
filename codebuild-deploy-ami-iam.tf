@@ -6,16 +6,7 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
         ]
         resources = [
             "arn:aws:s3:::${var.service-s3-bucket}/*",
-            "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/ami-id.tfvars"
-        ]
-    }
-    statement {
-        effect = "Allow",
-        actions = [
-            "s3:GetObject",
-            "s3:PutObject"
-        ]
-        resources = [
+            "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars",
             "arn:aws:s3:::${var.service-s3-bucket}/tfstates/${var.environment}-deployment.tfstate"
         ]
     }
@@ -25,7 +16,8 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
             "s3:PutObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/*"
+            "arn:aws:s3:::${var.service-s3-bucket}/*",
+            "arn:aws:s3:::${var.service-s3-bucket}/tfstates/${var.environment}-deployment.tfstate"
         ]
     }
 }

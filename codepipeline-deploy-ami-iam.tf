@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "codepipeline-deploy-ami-s3" {
     ]
     resources = [
         "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/${var.service-name}.zip",
-        "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/ami-id.tfvars"
+        "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars"
     ]
   }
   statement {

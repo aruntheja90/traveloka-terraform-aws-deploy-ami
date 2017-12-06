@@ -1,4 +1,4 @@
-<!-- # traveloka-terraform-aws-bake-ami
+# traveloka-terraform-aws-deploy-ami
 A Terraform module which creates a AWS CodePipeline pipeline, two CodeBuild project, along with their respective IAM roles and least-privilege policies
 This pipeline and build projects can be used to deploy baked AMIs to an environment
 
@@ -32,4 +32,4 @@ module "traveloka-aws-deploy-ami" {
 
 ## License
 
-Apache 2. See LICENSE for full details. -->
+Apache 2. See LICENSE for full details.
