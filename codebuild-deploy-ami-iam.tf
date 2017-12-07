@@ -4,14 +4,14 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
         actions = [
             "s3:GetObject"
         ]
-        resources = "${local.s3-get-list}"
+        resources = "${var.additional-s3-get-object-permissions}"
     }
     statement {
         effect = "Allow",
         actions = [
             "s3:PutObject"
         ]
-        resources = "${local.s3-put-list}"
+        resources = "${var.additional-s3-put-object-permissions}"
     }
 }
 data "aws_iam_policy_document" "codebuild-deploy-ami-cloudwatch" {
