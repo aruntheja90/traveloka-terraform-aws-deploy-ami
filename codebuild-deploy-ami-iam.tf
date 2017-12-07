@@ -1,4 +1,13 @@
-data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {    
+data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
+    statement {
+        effect = "Allow",
+        actions = [
+            "s3:ListBucket"
+        ]
+        resources = [
+            "arn:aws:s3:::${var.service-s3-bucket}"
+        ]
+    }
     statement {
         effect = "Allow",
         actions = [
