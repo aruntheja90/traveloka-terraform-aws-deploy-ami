@@ -5,9 +5,9 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
             "s3:GetObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/*",
-            "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars",
-            "arn:aws:s3:::${var.service-s3-bucket}/tfstates/${var.environment}-deployment.tfstate"
+            "arn:aws:s3:::${var.service-s3-bucket}/*/*",
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars",
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
         ]
     }
     statement {
@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
             "s3:PutObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/*",
-            "arn:aws:s3:::${var.service-s3-bucket}/tfstates/${var.environment}-deployment.tfstate"
+            "arn:aws:s3:::${var.service-s3-bucket}/*/*",
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
         ]
     }
 }
@@ -30,10 +30,10 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-cloudwatch" {
             "logs:PutLogEvents"
         ]
         resources = [
-            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.service-name}-deploy-ami-${var.environment}-plan",
-            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.service-name}-deploy-ami-${var.environment}-apply",
-            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.service-name}-deploy-ami-${var.environment}-plan:*",
-            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${var.service-name}-deploy-ami-${var.environment}-apply:*"
+            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${local.env-plan-pipeline-name}",
+            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${local.env-apply-pipeline-name}",
+            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${local.env-plan-pipeline-name}:*",
+            "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/codebuild/${local.env-apply-pipeline-name}:*"
         ]
     }
 }
@@ -226,20 +226,6 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             ]
         }
     }
-    # statement {
-    #     effect = "Allow",
-    #     actions = [
-    #     ]
-    #     resources = [
-    #     ]
-    # }
-    # statement {
-    #     effect = "Allow",
-    #     actions = [
-    #     ]
-    #     resources = [
-    #     ]
-    # }
 }
 
 resource "aws_iam_role" "codebuild-deploy-ami" {

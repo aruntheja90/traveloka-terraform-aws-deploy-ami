@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "codebuild-override-s3" {
             "s3:PutObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars"
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
         ]
     }
     statement {
@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "codebuild-override-s3" {
             "s3:GetObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/${var.service-name}-deploy-ami/${var.service-name}.zip"
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.service-name}.zip"
         ]
     }
 }

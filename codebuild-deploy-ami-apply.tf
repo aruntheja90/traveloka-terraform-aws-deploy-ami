@@ -1,5 +1,5 @@
 resource "aws_codebuild_project" "deploy-ami-apply" {
-    name         = "${var.service-name}-deploy-ami-${var.environment}-apply"
+    name         = "${local.env-apply-pipeline-name}"
     description  = "Deploy ${var.service-name} AMI to ${var.environment}"
     service_role = "${aws_iam_role.codebuild-deploy-ami.arn}"
 

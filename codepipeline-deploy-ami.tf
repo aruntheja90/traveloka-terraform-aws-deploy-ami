@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "deploy-ami" {
-  name     = "${var.service-name}-deploy-ami-${var.environment}"
+  name     = "${local.env-pipeline-name}"
   role_arn = "${aws_iam_role.codepipeline-deploy-ami.arn}"
 
   artifact_store {
@@ -20,7 +20,7 @@ resource "aws_codepipeline" "deploy-ami" {
 
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
-        S3ObjectKey = "${var.service-name}-deploy-ami/${var.service-name}.zip"
+        S3ObjectKey = "${local.common-pipeline-name}/${var.service-name}.zip"
         PollForSourceChanges = "true"
       }
       run_order = 1
@@ -35,7 +35,7 @@ resource "aws_codepipeline" "deploy-ami" {
 
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
-        S3ObjectKey = "${var.service-name}-deploy-ami/instance-ami-id-${var.environment}.tfvars"
+        S3ObjectKey = "${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
         PollForSourceChanges = "true"
       }
       run_order = 1
