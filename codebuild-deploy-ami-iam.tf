@@ -4,19 +4,14 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
         actions = [
             "s3:GetObject"
         ]
-        resources = "${concat([
-            # we use star below because codepipeline will only use the first 20 chars of the pipeline name as the s3 key 'directory'
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"
-        ], var.additional-s3-get-object-permissions)}"
+        resources = "${concat(list("arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"), var.additional-s3-get-object-permissions)}"
     }
     statement {
         effect = "Allow",
         actions = [
             "s3:PutObject"
         ]
-        resources = "${concat([
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"
-        ], var.additional-s3-put-object-permissions)}"
+        resources = "${concat(list("arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"), var.additional-s3-put-object-permissions)}"
     }
 }
 data "aws_iam_policy_document" "codebuild-deploy-ami-cloudwatch" {
