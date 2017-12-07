@@ -35,6 +35,16 @@ variable "additional-s3-get-object-permissions" {
   default = []
 }
 
+variable "service-s3-ami-id-key" {
+  type    = "string"
+  description = "the s3 path (from the app bucket) of a file containing ami id that should be deployed"
+}
+
+variable "service-s3-deploy-conf-zip-key" {
+  type    = "string"
+  description = "the s3 path (from the app bucket) of a zip file containing terraform configuration"
+}
+
 variable "plan-buildspec" {
   type    = "string"
   description = "the buildspec for the plan CodeBuild project"

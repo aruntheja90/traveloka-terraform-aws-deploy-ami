@@ -20,7 +20,7 @@ resource "aws_codepipeline" "deploy-ami" {
 
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
-        S3ObjectKey = "${local.common-pipeline-name}/${var.service-name}.zip"
+        S3ObjectKey = "${var.service-s3-deploy-conf-zip-key}"
         PollForSourceChanges = "true"
       }
       run_order = 1
@@ -35,7 +35,7 @@ resource "aws_codepipeline" "deploy-ami" {
 
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
-        S3ObjectKey = "${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
+        S3ObjectKey = "${var.service-s3-ami-id-key}"
         PollForSourceChanges = "true"
       }
       run_order = 1
