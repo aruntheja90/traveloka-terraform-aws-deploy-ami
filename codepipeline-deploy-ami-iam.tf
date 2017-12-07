@@ -14,10 +14,7 @@ data "aws_iam_policy_document" "codepipeline-deploy-ami-s3" {
         "s3:GetObject",
         "s3:GetObjectVersion"
     ]
-    resources = [
-        "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.service-name}.zip",
-        "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
-    ]
+    resources = "${var.additional-s3-get-object-permissions}"
   }
   statement {
     effect = "Allow",
@@ -25,7 +22,7 @@ data "aws_iam_policy_document" "codepipeline-deploy-ami-s3" {
         "s3:PutObject"
     ]
     resources = [
-        "arn:aws:s3:::${var.service-s3-bucket}/*"
+        "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"
     ]
   }
   statement {

@@ -4,18 +4,14 @@ data "aws_iam_policy_document" "codebuild-override-s3" {
         actions = [
             "s3:PutObject"
         ]
-        resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
-        ]
+        resources = "${var.additional-s3-put-object-permissions}"
     }
     statement {
         effect = "Allow",
         actions = [
             "s3:GetObject"
         ]
-        resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.service-name}.zip"
-        ]
+        resources = "${var.additional-s3-get-object-permissions}"
     }
 }
 data "aws_iam_policy_document" "codebuild-override-cloudwatch" {

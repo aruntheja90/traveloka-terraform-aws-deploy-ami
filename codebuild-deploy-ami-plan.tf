@@ -17,7 +17,7 @@ resource "aws_codebuild_project" "deploy-ami-plan" {
 
     source {
         type     = "CODEPIPELINE"
-        buildspec = "buildspec-deployment-plan.yml"
+        buildspec = "${var.plan-buildspec}"
     }
 
     tags {

@@ -17,7 +17,7 @@ resource "aws_codebuild_project" "deploy-ami-apply" {
 
     source {
         type     = "CODEPIPELINE"
-        buildspec = "buildspec-deployment-apply.yml"
+        buildspec = "${var.apply-buildspec}"
     }
 
     tags {

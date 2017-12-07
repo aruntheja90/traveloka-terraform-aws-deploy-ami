@@ -4,22 +4,19 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
         actions = [
             "s3:GetObject"
         ]
-        resources = [
-            // we use star below because codepipeline will only use the first 20 chars of the pipeline name as the s3 key 'directory'
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*",
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars",
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
-        ]
+        resources = "${concat([
+            # we use star below because codepipeline will only use the first 20 chars of the pipeline name as the s3 key 'directory'
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"
+        ], var.additional-s3-get-object-permissions)}"
     }
     statement {
         effect = "Allow",
         actions = [
             "s3:PutObject"
         ]
-        resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*",
-            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
-        ]
+        resources = "${concat([
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*"
+        ], var.additional-s3-put-object-permissions)}"
     }
 }
 data "aws_iam_policy_document" "codebuild-deploy-ami-cloudwatch" {

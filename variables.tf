@@ -22,3 +22,25 @@ variable "ec2-instance-role-arn" {
   type    = "string"
   description = "the arn of the instance profile's role, to give to ec2 instances"
 }
+
+variable "additional-s3-put-object-permissions" {
+  type    = "list"
+  description = "S3 paths CodeBuild and CodePipeline will also have PutObject permission to."
+  default = []
+}
+
+variable "additional-s3-get-object-permissions" {
+  type    = "list"
+  description = "S3 paths CodeBuild and CodePipeline will also have Get and GetObjectVersion permission to."
+  default = []
+}
+
+variable "plan-buildspec" {
+  type    = "string"
+  description = "the buildspec for the plan CodeBuild project"
+}
+
+variable "apply-buildspec" {
+  type    = "string"
+  description = "the buildspec for the apply CodeBuild project"
+}
