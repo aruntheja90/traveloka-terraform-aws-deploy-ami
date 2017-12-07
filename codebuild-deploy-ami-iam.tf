@@ -5,7 +5,8 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
             "s3:GetObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/*/*",
+            // we use star below because codepipeline will only use the first 20 chars of the pipeline name as the s3 key 'directory'
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*",
             "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars",
             "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
         ]
@@ -16,7 +17,7 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-s3" {
             "s3:PutObject"
         ]
         resources = [
-            "arn:aws:s3:::${var.service-s3-bucket}/*/*",
+            "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}*/*",
             "arn:aws:s3:::${var.service-s3-bucket}/${local.common-pipeline-name}/${var.environment}-deployment.tfstate"
         ]
     }
@@ -43,7 +44,7 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
         actions = [
             "autoscaling:DescribeAutoScalingGroups",
             "autoscaling:DescribeLaunchConfigurations",
-            # "autoscaling:DescribeLoadBalancers",
+            "autoscaling:DescribeLoadBalancers",
             # "autoscaling:DescribePolicies",
             # "autoscaling:DescribeScalingActivities",
             # "autoscaling:DescribeScheduledActions",
@@ -51,7 +52,7 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             "ec2:DescribeImages",
             # "ec2:DescribeInstances",
             # "ec2:DescribeRegions",
-            # "ec2:DescribeSecurityGroups",
+            "ec2:DescribeSecurityGroups",
             # "ec2:DescribeSubnets",
             # "ec2:DescribeTags",
             # "ec2:DescribeVpcs",

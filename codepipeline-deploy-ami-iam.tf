@@ -35,8 +35,8 @@ data "aws_iam_policy_document" "codepipeline-deploy-ami-s3" {
         "codebuild:StartBuild"
     ]
     resources = [ 
-      "arn:aws:codebuild:*:${data.aws_caller_identity.current.account_id}:project/${aws_codebuild_project.deploy-ami-plan.name}",
-      "arn:aws:codebuild:*:${data.aws_caller_identity.current.account_id}:project/${aws_codebuild_project.deploy-ami-apply.name}"
+      "arn:aws:codebuild:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:project/${aws_codebuild_project.deploy-ami-plan.name}",
+      "arn:aws:codebuild:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:project/${aws_codebuild_project.deploy-ami-apply.name}"
     ]
   }
 }
