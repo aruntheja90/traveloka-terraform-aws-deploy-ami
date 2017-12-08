@@ -147,10 +147,10 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             ]
         }
         condition = {
-            test = "StringEquals"
+            test = "StringLike"
             variable = "aws:RequestTag/Application"
             values = [
-                "java-7"
+                "*"
             ]
         }
         condition = {
