@@ -1,7 +1,7 @@
 data "template_file" "codebuild_rollback_command" {
   template = "${file("${path.module}/codebuild-rollback-buildspec.tpl")}"
   vars {
-      s3-ami_id-path = "s3://${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
+      s3-ami_id-path = "s3://${var.service-s3-bucket}/${var.service-s3-ami-id-key}"
   }
 }
 
