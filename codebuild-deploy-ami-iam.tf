@@ -40,7 +40,6 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-cloudwatch" {
     }
 }
 data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
-    # describe targetgroups* and securitygroups are optional, to make input variables verification possible with terraform
     statement {
         effect = "Allow",
         actions = [
@@ -54,7 +53,7 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             "ec2:DescribeImages",
             # "ec2:DescribeInstances",
             # "ec2:DescribeRegions",
-            "ec2:DescribeSecurityGroups",
+            # "ec2:DescribeSecurityGroups",
             # "ec2:DescribeSubnets",
             # "ec2:DescribeTags",
             # "ec2:DescribeVpcs",
@@ -62,8 +61,8 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             # "elasticloadbalancing:DescribeLoadBalancerAttributes",
             # "elasticloadbalancing:DescribeLoadBalancers",
             # "elasticloadbalancing:DescribeRules",
-            "elasticloadbalancing:DescribeTargetGroupAttributes",
-            "elasticloadbalancing:DescribeTargetGroups",
+            # "elasticloadbalancing:DescribeTargetGroupAttributes",
+            # "elasticloadbalancing:DescribeTargetGroups",
             "elasticloadbalancing:DescribeTargetHealth",
             # "iam:ListServerCertificates"
         ]
