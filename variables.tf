@@ -56,6 +56,6 @@ variable "apply-buildspec" {
 }
 
 variable "poll-source-changes" {
-  default = true
+  default = "true"
   description = "Set whether the created pipeline should poll the source for change and triggers the pipeline"
 }
