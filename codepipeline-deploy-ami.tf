@@ -21,7 +21,7 @@ resource "aws_codepipeline" "deploy-ami" {
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
         S3ObjectKey = "${var.service-s3-deploy-conf-zip-key}"
-        PollForSourceChanges = "true"
+        PollForSourceChanges = "${var.poll-source-changes}"
       }
       run_order = 1
     }
@@ -36,7 +36,7 @@ resource "aws_codepipeline" "deploy-ami" {
       configuration {
         S3Bucket = "${var.service-s3-bucket}"
         S3ObjectKey = "${var.service-s3-ami-id-key}"
-        PollForSourceChanges = "true"
+        PollForSourceChanges = "${var.poll-source-changes}"
       }
       run_order = 1
     }
