@@ -21,6 +21,8 @@ resource "aws_codebuild_project" "deploy-ami-apply" {
     }
 
     tags {
+        "Service" = "${var.service-name}"
         "ProductDomain" = "${var.product-domain}"
+        "Environment" = "management"
     }
 }

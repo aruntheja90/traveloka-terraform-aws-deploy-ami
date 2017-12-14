@@ -119,6 +119,13 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             ]
         }
         condition = {
+            test = "StringLike"
+            variable = "aws:RequestTag/ServiceVersion"
+            values = [
+                "*"
+            ]
+        }
+        condition = {
             test = "StringEquals"
             variable = "aws:RequestTag/Cluster"
             values = [
@@ -137,13 +144,6 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             variable = "aws:RequestTag/Environment"
             values = [
                 "${var.environment}"
-            ]
-        }
-        condition = {
-            test = "StringLike"
-            variable = "aws:RequestTag/ServiceVersion"
-            values = [
-                "*"
             ]
         }
         condition = {
@@ -214,10 +214,10 @@ data "aws_iam_policy_document" "codebuild-deploy-ami-terraform" {
             ]
         }
         condition = {
-            test = "StringEquals"
+            test = "StringLike"
             variable = "autoscaling:ResourceTag/Application"
             values = [
-                "java-7"
+                "*"
             ]
         }
         condition = {
