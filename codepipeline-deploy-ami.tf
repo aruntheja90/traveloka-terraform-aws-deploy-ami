@@ -65,6 +65,9 @@ resource "aws_codepipeline" "deploy-ami" {
       category        = "Approval"
       provider        = "Manual"
       version         = "1"
+      configuration {
+        CustomData = "Please review the `Plan` action result and make sure the `Build` stage hasn't run for too long (e.g. >1 hours) as the infrastructure state may have changed"
+      }
       run_order = 2
     }
     action {
