@@ -55,6 +55,11 @@ variable "apply-buildspec" {
   description = "the buildspec for the apply CodeBuild project"
 }
 
+variable "rollback-project-s3-source" {
+  type    = "string"
+  description = "the s3 object for the override CodeBuild project, must be a zip file"
+}
+
 variable "poll-source-changes" {
   default = "true"
   description = "Set whether the created pipeline should poll the source for change and triggers the pipeline"

@@ -1,3 +1,5 @@
+# TODO just change this codebuild project to a lambda function!
+
 data "template_file" "codebuild_rollback_command" {
   template = "${file("${path.module}/codebuild-rollback-buildspec.tpl")}"
   vars {
@@ -7,7 +9,7 @@ data "template_file" "codebuild_rollback_command" {
 
 resource "aws_codebuild_project" "override" {
     name         = "${var.service-name}-override-${var.environment}"
-    description  = "Write a specific AMI ID to s3://${var.service-s3-bucket}/${local.common-pipeline-name}/instance-ami-id-${var.environment}.tfvars"
+    description  = "Write a specific AMI ID to s3://${var.service-s3-bucket}/${var.service-s3-ami-id-key}"
     service_role = "${aws_iam_role.codebuild-override.arn}"
 
     artifacts {
@@ -25,7 +27,7 @@ resource "aws_codebuild_project" "override" {
     source {
         type     = "S3"
         buildspec = "${data.template_file.codebuild_rollback_command.rendered}"
-        location = "${var.service-s3-bucket}/${local.common-pipeline-name}/${var.service-name}.zip"
+        location = "${var.service-s3-bucket}/${var.rollback-project-s3-source}"
     }
 
     tags {
