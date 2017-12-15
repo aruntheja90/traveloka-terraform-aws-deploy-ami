@@ -66,7 +66,7 @@ resource "aws_codepipeline" "deploy-ami" {
       provider        = "Manual"
       version         = "1"
       configuration {
-        CustomData = "Please review the `Plan` action result and make sure the `Build` stage hasn't run for too long (e.g. >1 hours) as the infrastructure state may have changed"
+        CustomData = "You're deploying [[${var.service-name}]] to [[${var.environment}]]. Review the `Plan` action result. Make sure the `Build` stage has just run (e.g. <1 hours) as the state may have changed."
       }
       run_order = 2
     }
