@@ -29,7 +29,6 @@ module "traveloka-deploy-ami-staging" {
 
 ## Conventions
  - The created pipeline name will be `${var.service-name}-deploy-ami-${var.environment}`
- - The pipeline source zip is an S3 object that should be located in `{var.service-s3-bucket}/${var.service-name}-deploy-ami/${var.service-name}.zip`
  - The codepipeline IAM role name will be `CodePipelineDeployAmi-${var.service-name}`
  - The codepipeline IAM role inline policy name will be:
     - `CodePipelineDeployAmi-${var.service-name}-S3`
